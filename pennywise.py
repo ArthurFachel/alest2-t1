@@ -25,7 +25,7 @@ AJUDA = """Comandos disponíveis:
   sair                 Encerra o programa."""
 
 
-def executar_consultar(top, argumento):
+def exec_consultar(top, argumento):
     """Trata o comando `consultar <arquivo>`."""
     if not argumento:
         print("Uso: consultar <arquivo>")
@@ -44,24 +44,23 @@ def executar_consultar(top, argumento):
         print("Região {} lida.".format(argumento))
 
 
-def executar_mostrar(top):
+def exec_mostrar(top):
     """Trata o comando `mostrar`."""
     if top.esta_vazio():
         print("Nenhuma criança na lista.")
         return
     print("Crianças no Top-{}:".format(top.capacidade()))
     for posicao, crianca in enumerate(top.listar_ordenado(), start=1):
-        print("{}. {} {}".format(posicao, crianca.nome, crianca.escore))
+        print("{}. {} {}".format(posicao, crianca.nome, crianca.score))
 
 
-def executar_limpar(top):
+def exec_limpar(top):
     """Trata o comando `limpar`."""
     top.limpar()
     print("Lista esvaziada.")
 
-
+# Aux de comandos
 def interpretar_comando(linha):
-    """Quebra a linha digitada em (comando, argumento)."""
     partes = linha.strip().split(maxsplit=1)
     if not partes:
         return "", ""
@@ -76,11 +75,11 @@ def processar(top, linha):
     if not comando:
         return True
     if comando == "consultar":
-        executar_consultar(top, argumento)
+        exec_consultar(top, argumento)
     elif comando == "mostrar":
-        executar_mostrar(top)
+        exec_mostrar(top)
     elif comando == "limpar":
-        executar_limpar(top)
+        exec_limpar(top)
     elif comando == "ajuda":
         print(AJUDA)
     elif comando == "sair":
@@ -90,8 +89,7 @@ def processar(top, linha):
     return True
 
 
-def principal():
-    """Laço principal da CLI."""
+def main():
     top = TopCovardes(CAPACIDADE_PADRAO)
     print("Pennywise e as 10 crianças mais covardes. Digite 'ajuda' para os comandos.")
     while True:
@@ -109,4 +107,4 @@ def principal():
 
 
 if __name__ == "__main__":
-    sys.exit(principal())
+    sys.exit(main())

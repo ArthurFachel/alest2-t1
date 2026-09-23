@@ -35,7 +35,6 @@ class TopCovardes:
     def limpar(self):
         self._fila.limpar()
 
-    # ------------------------------------------------------------------
     def oferecer(self, crianca):
         """Considera uma criança para o Top-K.
 
@@ -51,7 +50,6 @@ class TopCovardes:
             return True
         return False
 
-    # ------------------------------------------------------------------
     def consultar_arquivo(self, caminho):
         """Lê o arquivo em fluxo e atualiza o Top-K. Devolve quantas linhas leu.
 
@@ -66,7 +64,6 @@ class TopCovardes:
                     continue
                 self.oferecer(self._interpretar_linha(linha, numero))
                 lidas += 1
-                # A linha sai de escopo aqui: nada do arquivo é acumulado.
         return lidas
 
     @staticmethod
@@ -85,7 +82,6 @@ class TopCovardes:
             ) from None
         return Crianca(nome, escore)
 
-    # ------------------------------------------------------------------
     def listar_ordenado(self):
         """Devolve as crianças da mais covarde para a menos covarde.
 

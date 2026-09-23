@@ -40,17 +40,16 @@ def ler_top_de_referencia(nomes_de_arquivo, k=10):
             for linha in arquivo:
                 linha = linha.strip()
                 if linha:
-                    nome_crianca, escore = linha.split()
-                    todas.append((int(escore), nome_crianca))
+                    nome_crianca, score = linha.split()
+                    todas.append((int(score), nome_crianca))
     todas.sort()
     return todas[:k]
 
 
 def top_como_tuplas(top):
-    return [(c.escore, c.nome) for c in top.listar_ordenado()]
+    return [(c.score, c.nome) for c in top.listar_ordenado()]
 
 
-# ----------------------------------------------------------------------
 def testar_heap_basico():
     print("teste: operações básicas da fila de prioridade")
     fila = FilaPrioridadeMaxima(3)
@@ -59,7 +58,7 @@ def testar_heap_basico():
     fila.inserir(Crianca("B", 30))
     fila.inserir(Crianca("C", 20))
     verificar(fila.esta_cheia(), "fila cheia com 3 itens")
-    verificar(fila.maximo().nome == "B", "raiz é o maior escore (B, 30)")
+    verificar(fila.maximo().nome == "B", "raiz é o maior score (B, 30)")
     verificar(fila.remover_maximo().nome == "B", "remover_maximo devolve B")
     verificar(fila.maximo().nome == "C", "nova raiz é C (20)")
     verificar(fila.tamanho() == 2, "tamanho cai para 2")
@@ -153,16 +152,16 @@ def testar_limpar():
 
 
 def testar_empate_lexicografico():
-    print("teste: empate de escore é desempatado pelo nome")
+    print("teste: empate de score é desempatado pelo nome")
     top = TopCovardes(3)
     for nome in ("Zoe", "Ana", "Bia"):
         top.oferecer(Crianca(nome, 50))
     verificar(
         [c.nome for c in top.listar_ordenado()] == ["Ana", "Bia", "Zoe"],
-        "ordem lexicográfica entre escores iguais",
+        "ordem lexicográfica entre scores iguais",
     )
     trocou = top.oferecer(Crianca("Aaa", 50))
-    verificar(trocou, "'Aaa' entra no lugar de 'Zoe' (mesmo escore, nome menor)")
+    verificar(trocou, "'Aaa' entra no lugar de 'Zoe' (mesmo score, nome menor)")
     verificar(
         [c.nome for c in top.listar_ordenado()] == ["Aaa", "Ana", "Bia"],
         "Top final após o desempate",
@@ -188,7 +187,7 @@ def testar_linhas_vazias_e_formato():
             TopCovardes(10).consultar_arquivo(ruim)
         except ErroDeFormato as capturado:
             erro = capturado
-        verificar(erro is not None, "escore não inteiro levanta ErroDeFormato")
+        verificar(erro is not None, "score não inteiro levanta ErroDeFormato")
 
 
 def testar_arquivo_inexistente_preserva_estado():

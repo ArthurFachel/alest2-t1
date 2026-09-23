@@ -7,7 +7,7 @@ vetor indexado a partir de 1, com as operações `subir` (swim) e
 
 Por que fila de MÁXIMO se queremos as 10 MENORES?
     Guardando as 10 menores vistas até agora, o item que precisa sair
-    quando chega alguém mais covarde é justamente o MAIOR escore do
+    quando chega alguém mais covarde é justamente o MAIOR score do
     conjunto. Uma max-heap deixa esse candidato a descarte sempre na
     raiz, com acesso em tempo constante e remoção em O(log K).
 
@@ -18,7 +18,7 @@ A capacidade é fixa (K = 10 no trabalho): o vetor interno nunca cresce.
 class FilaPrioridadeMaxima:
     """Heap binário de máximo com capacidade fixa.
 
-    A prioridade de uma criança é a chave (escore, nome). "Máximo" aqui
+    A prioridade de uma criança é a chave (score, nome). "Máximo" aqui
     significa o item menos covarde armazenado, ou seja, o próximo a ser
     descartado quando a fila estiver cheia.
     """
@@ -32,9 +32,8 @@ class FilaPrioridadeMaxima:
         self._vetor = [None] * (capacidade + 1)
         self._n = 0
 
-    # ------------------------------------------------------------------
-    # Consultas básicas
-    # ------------------------------------------------------------------
+    #Consultas 
+  
     def esta_vazia(self):
         return self._n == 0
 
@@ -53,9 +52,8 @@ class FilaPrioridadeMaxima:
             raise IndexError("Fila de prioridade vazia.")
         return self._vetor[1]
 
-    # ------------------------------------------------------------------
-    # Operações de modificação
-    # ------------------------------------------------------------------
+    # Operações
+
     def inserir(self, item):
         """Insere no fim do vetor e faz o item subir até a posição correta."""
         if self.esta_cheia():
@@ -94,9 +92,8 @@ class FilaPrioridadeMaxima:
             self._vetor[i] = None
         self._n = 0
 
-    # ------------------------------------------------------------------
-    # Auxiliares do heap
-    # ------------------------------------------------------------------
+    # Aux de heap
+
     def _subir(self, k):
         """swim: enquanto o pai for menor que o filho, sobe o filho."""
         while k > 1 and self._menor(k // 2, k):
@@ -114,9 +111,7 @@ class FilaPrioridadeMaxima:
             self._trocar(k, j)
             k = j
 
-    # ------------------------------------------------------------------
-    # Auxiliares do vetor
-    # ------------------------------------------------------------------
+    # Aux de vetor
     def _menor(self, i, j):
         """True se a chave em i for menor que a chave em j."""
         return self._vetor[i].chave() < self._vetor[j].chave()
@@ -124,9 +119,7 @@ class FilaPrioridadeMaxima:
     def _trocar(self, i, j):
         self._vetor[i], self._vetor[j] = self._vetor[j], self._vetor[i]
 
-    # ------------------------------------------------------------------
-    # Acesso somente-leitura usado apenas na impressão
-    # ------------------------------------------------------------------
+    # Print
     def itens(self):
         """Itera sobre os itens armazenados, em ordem de vetor (não ordenada).
 
